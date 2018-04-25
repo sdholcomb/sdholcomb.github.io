@@ -1,0 +1,43 @@
+.navdrawer .mdl-navigation__link:hover {
+  background-color: #00BCD4 !important;
+}
+
+.navdrawer .mdl-navigation__link .material-icons {
+  font-size: 24px;
+  margin-right: 32px;
+}
+
+.cardlink{
+  text-decoration: none;
+}
+
+.cardlink:hover{
+  background-color: #00BCD4 !important;
+}
+
+.pagecard {
+  height: 70%;
+  width: 90%;
+  margin: auto;
+  margin-top: 2%;;
+}
+
+.circle-container {
+  display: grid;
+  margin: auto;
+  grid-template-columns: repeat(3, 40%);
+  grid-auto-rows: 200px;
+}
+
+.circlecard {
+  height: 100px;
+  width: 100px;
+  border-radius: 50px;
+  color: white;
+  text-align: center;
+}
+
+.circlecard > p {
+  padding-top: 30px;
+  font-size: 20px;
+}

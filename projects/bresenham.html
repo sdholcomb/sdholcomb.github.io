@@ -1,0 +1,160 @@
+
+<!-- saved from url=(0083)http://mypages.valdosta.edu/rpmihail/teaching/S18/CS4830/assignments/bresenham.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<style>
+		body{
+			background-color: #b5d3e5;
+		}
+		.canvasholder{
+			margin: auto;
+			width: 500;
+			height: 500;
+			text-align: center;
+			font-size: 25px;
+		}
+		canvas{
+			box-shadow: 10px 10px 30px #8ea4b2;
+			background-color: #467299;
+		}
+	</style>
+</head>
+
+<body>
+<div class=canvasholder>
+	<canvas id="canvas" width="500" height="500"></canvas>
+	<p id="quadrant"></p>
+</div>
+
+<script>
+
+var canvas = document.getElementById("canvas");
+var context = canvas.getContext("2d");
+
+canvas.addEventListener("mousedown", handleMouseDown);
+canvas.addEventListener("mousemove", handleMouseMove);
+canvas.addEventListener("mouseup", handleMouseUp);
+
+
+var p0 = {x: 0, y:0};
+var p1 = {x: 0, y:0};
+
+var isdown = 0;
+
+display();
+
+function setPixel(x, y) {
+	context.fillRect(x, y, 1, 1);
+}
+
+function handleMouseUp(event)
+{
+	isdown = 0;
+	p1.x = event.clientX - canvas.offsetLeft;
+	p1.y = event.clientY - canvas.offsetTop;
+	display();
+}
+
+function handleMouseDown(event)
+{
+	isdown = 1;
+	p0.x = event.clientX - canvas.offsetLeft;
+	p0.y = event.clientY - canvas.offsetTop;
+	display();
+}
+
+function handleMouseMove(event)
+{
+	if (isdown == 0)
+		return;
+
+  p1.x = event.clientX - canvas.offsetLeft;
+	p1.y = event.clientY - canvas.offsetTop;
+
+	display();
+}
+
+//======================================
+//plotLine:	plots the line
+//======================================
+function plotLine(x0,y0, x1,y1, isHighSlope){
+  var dx = x1 - x0; //change in x (negative if x0 higher)
+  var dy = y1 - y0; //change in y (negative if y0 higher)
+  var yi = 1;
+  if (dy < 0){
+    yi = -1; //sets y increment to a negative if change in y is negative (y0 higher)
+    dy = -dy; //sets the change in y back to a positive
+  }
+  var D = 2*dy - dx; //decision error
+  var y = y0; //set y to first point
+
+  for (var x = x0; x < x1; x++){ //iterate through all values of x from p0 to p1
+		if(isHighSlope) //if it has a high slope, the order of x and y was reversed
+			setPixel(y,x);//and setting pixels needs to be in the order (x,y)
+		else
+			setPixel(x,y);
+    if (D > 0){
+       y = y + yi //if decision error greater than 0, increment y
+       D = D - 2*dx
+    }
+    D = D + 2*dy;
+	}
+}
+
+//======================================
+//bresenham(): 	based on slope & direction, swaps arguments if needed
+//							and sets HTML to show octant
+//======================================
+function bresenham(p0, p1){
+	var element = document.getElementById("quadrant");
+
+	if(p0.x == p1.x && p0.y == p1.y){
+		element.innerHTML = "Zero Length Line";
+		return;
+	}
+
+  if (Math.abs(p1.y - p0.y) < Math.abs(p1.x - p0.x)){ //change in y is less than change in x (low slope)
+    if (p0.x > p1.x){ //if p0.x greater than p1.x, swap them when plotting
+			element.innerHTML = (p0.y < p1.y) ? "6th" : "5th";
+      plotLine(p1.x, p1.y, p0.x, p0.y, false);
+		}
+    else{
+			element.innerHTML = (p0.y < p1.y) ? "1st" : "2nd";
+      plotLine(p0.x, p0.y, p1.x, p1.y, false);
+		}
+  }
+
+  else{
+    if (p0.y > p1.y){
+			element.innerHTML = (p0.x < p1.x) ? "3rd" : "4th";
+			plotLine(p1.y, p1.x, p0.y, p0.x, true);
+		}
+    else{
+			element.innerHTML = (p0.x < p1.x) ? "8th" : "7th";
+			plotLine(p0.y, p0.x, p1.y, p1.x, true);
+		}
+  }
+}
+
+function display()
+{
+	context.clearRect(0, 0, canvas.width, canvas.height);
+	var dx = p1.x - p0.x;
+	var dy = p1.y - p0.y;
+
+	context.fillStyle = "#ffffff";
+	context.strokeStyle = "#ffffff";
+
+	bresenham(p0, p1);
+
+
+	// this is what the algorithm should output
+  /*
+	context.beginPath();
+	context.moveTo(p0.x, p0.y);
+	context.lineTo(p1.x, p1.y);
+	context.stroke();
+  */
+
+}
+</script>
+</body></html>

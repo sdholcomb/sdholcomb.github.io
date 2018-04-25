@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta charset="utf-8" />
+      <title>db</title>
+      <style>.markdown-preview:not([data-use-github-style]) { padding: 2em; font-size: 1.2em; color: rgb(171, 178, 191); background-color: rgb(40, 44, 52); overflow: auto; }
+.markdown-preview:not([data-use-github-style]) > :first-child { margin-top: 0px; }
+.markdown-preview:not([data-use-github-style]) h1, .markdown-preview:not([data-use-github-style]) h2, .markdown-preview:not([data-use-github-style]) h3, .markdown-preview:not([data-use-github-style]) h4, .markdown-preview:not([data-use-github-style]) h5, .markdown-preview:not([data-use-github-style]) h6 { line-height: 1.2; margin-top: 1.5em; margin-bottom: 0.5em; color: rgb(255, 255, 255); }
+.markdown-preview:not([data-use-github-style]) h1 { font-size: 2.4em; font-weight: 300; }
+.markdown-preview:not([data-use-github-style]) h2 { font-size: 1.8em; font-weight: 400; }
+.markdown-preview:not([data-use-github-style]) h3 { font-size: 1.5em; font-weight: 500; }
+.markdown-preview:not([data-use-github-style]) h4 { font-size: 1.2em; font-weight: 600; }
+.markdown-preview:not([data-use-github-style]) h5 { font-size: 1.1em; font-weight: 600; }
+.markdown-preview:not([data-use-github-style]) h6 { font-size: 1em; font-weight: 600; }
+.markdown-preview:not([data-use-github-style]) strong { color: rgb(255, 255, 255); }
+.markdown-preview:not([data-use-github-style]) del { color: rgb(124, 135, 156); }
+.markdown-preview:not([data-use-github-style]) a, .markdown-preview:not([data-use-github-style]) a code { color: rgb(82, 139, 255); }
+.markdown-preview:not([data-use-github-style]) img { max-width: 100%; }
+.markdown-preview:not([data-use-github-style]) > p { margin-top: 0px; margin-bottom: 1.5em; }
+.markdown-preview:not([data-use-github-style]) > ul, .markdown-preview:not([data-use-github-style]) > ol { margin-bottom: 1.5em; }
+.markdown-preview:not([data-use-github-style]) blockquote { margin: 1.5em 0px; font-size: inherit; color: rgb(124, 135, 156); border-color: rgb(75, 83, 98); border-width: 4px; }
+.markdown-preview:not([data-use-github-style]) hr { margin: 3em 0px; border-top: 2px dashed rgb(75, 83, 98); background: none; }
+.markdown-preview:not([data-use-github-style]) table { margin: 1.5em 0px; }
+.markdown-preview:not([data-use-github-style]) th { color: rgb(255, 255, 255); }
+.markdown-preview:not([data-use-github-style]) th, .markdown-preview:not([data-use-github-style]) td { padding: 0.66em 1em; border: 1px solid rgb(75, 83, 98); }
+.markdown-preview:not([data-use-github-style]) code { color: rgb(255, 255, 255); background-color: rgb(58, 63, 75); }
+.markdown-preview:not([data-use-github-style]) pre.editor-colors { margin: 1.5em 0px; padding: 1em; font-size: 0.92em; border-radius: 3px; background-color: rgb(49, 54, 63); }
+.markdown-preview:not([data-use-github-style]) kbd { color: rgb(255, 255, 255); border-width: 1px 1px 2px; border-style: solid; border-color: rgb(75, 83, 98) rgb(75, 83, 98) rgb(62, 68, 81); border-image: initial; background-color: rgb(58, 63, 75); }
+.markdown-preview[data-use-github-style] { font-family: "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif; line-height: 1.6; word-wrap: break-word; padding: 30px; font-size: 16px; color: rgb(51, 51, 51); background-color: rgb(255, 255, 255); overflow: scroll; }
+.markdown-preview[data-use-github-style] > :first-child { margin-top: 0px !important; }
+.markdown-preview[data-use-github-style] > :last-child { margin-bottom: 0px !important; }
+.markdown-preview[data-use-github-style] a:not([href]) { color: inherit; text-decoration: none; }
+.markdown-preview[data-use-github-style] .absent { color: rgb(204, 0, 0); }
+.markdown-preview[data-use-github-style] .anchor { position: absolute; top: 0px; left: 0px; display: block; padding-right: 6px; padding-left: 30px; margin-left: -30px; }
+.markdown-preview[data-use-github-style] .anchor:focus { outline: none; }
+.markdown-preview[data-use-github-style] h1, .markdown-preview[data-use-github-style] h2, .markdown-preview[data-use-github-style] h3, .markdown-preview[data-use-github-style] h4, .markdown-preview[data-use-github-style] h5, .markdown-preview[data-use-github-style] h6 { position: relative; margin-top: 1em; margin-bottom: 16px; font-weight: bold; line-height: 1.4; }
+.markdown-preview[data-use-github-style] h1 .octicon-link, .markdown-preview[data-use-github-style] h2 .octicon-link, .markdown-preview[data-use-github-style] h3 .octicon-link, .markdown-preview[data-use-github-style] h4 .octicon-link, .markdown-preview[data-use-github-style] h5 .octicon-link, .markdown-preview[data-use-github-style] h6 .octicon-link { display: none; color: rgb(0, 0, 0); vertical-align: middle; }
+.markdown-preview[data-use-github-style] h1:hover .anchor, .markdown-preview[data-use-github-style] h2:hover .anchor, .markdown-preview[data-use-github-style] h3:hover .anchor, .markdown-preview[data-use-github-style] h4:hover .anchor, .markdown-preview[data-use-github-style] h5:hover .anchor, .markdown-preview[data-use-github-style] h6:hover .anchor { padding-left: 8px; margin-left: -30px; text-decoration: none; }
+.markdown-preview[data-use-github-style] h1:hover .anchor .octicon-link, .markdown-preview[data-use-github-style] h2:hover .anchor .octicon-link, .markdown-preview[data-use-github-style] h3:hover .anchor .octicon-link, .markdown-preview[data-use-github-style] h4:hover .anchor .octicon-link, .markdown-preview[data-use-github-style] h5:hover .anchor .octicon-link, .markdown-preview[data-use-github-style] h6:hover .anchor .octicon-link { display: inline-block; }
+.markdown-preview[data-use-github-style] h1 tt, .markdown-preview[data-use-github-style] h2 tt, .markdown-preview[data-use-github-style] h3 tt, .markdown-preview[data-use-github-style] h4 tt, .markdown-preview[data-use-github-style] h5 tt, .markdown-preview[data-use-github-style] h6 tt, .markdown-preview[data-use-github-style] h1 code, .markdown-preview[data-use-github-style] h2 code, .markdown-preview[data-use-github-style] h3 code, .markdown-preview[data-use-github-style] h4 code, .markdown-preview[data-use-github-style] h5 code, .markdown-preview[data-use-github-style] h6 code { font-size: inherit; }
+.markdown-preview[data-use-github-style] h1 { padding-bottom: 0.3em; font-size: 2.25em; line-height: 1.2; border-bottom: 1px solid rgb(238, 238, 238); }
+.markdown-preview[data-use-github-style] h1 .anchor { line-height: 1; }
+.markdown-preview[data-use-github-style] h2 { padding-bottom: 0.3em; font-size: 1.75em; line-height: 1.225; border-bottom: 1px solid rgb(238, 238, 238); }
+.markdown-preview[data-use-github-style] h2 .anchor { line-height: 1; }
+.markdown-preview[data-use-github-style] h3 { font-size: 1.5em; line-height: 1.43; }
+.markdown-preview[data-use-github-style] h3 .anchor { line-height: 1.2; }
+.markdown-preview[data-use-github-style] h4 { font-size: 1.25em; }
+.markdown-preview[data-use-github-style] h4 .anchor { line-height: 1.2; }
+.markdown-preview[data-use-github-style] h5 { font-size: 1em; }
+.markdown-preview[data-use-github-style] h5 .anchor { line-height: 1.1; }
+.markdown-preview[data-use-github-style] h6 { font-size: 1em; color: rgb(119, 119, 119); }
+.markdown-preview[data-use-github-style] h6 .anchor { line-height: 1.1; }
+.markdown-preview[data-use-github-style] p, .markdown-preview[data-use-github-style] blockquote, .markdown-preview[data-use-github-style] ul, .markdown-preview[data-use-github-style] ol, .markdown-preview[data-use-github-style] dl, .markdown-preview[data-use-github-style] table, .markdown-preview[data-use-github-style] pre { margin-top: 0px; margin-bottom: 16px; }
+.markdown-preview[data-use-github-style] hr { height: 4px; padding: 0px; margin: 16px 0px; background-color: rgb(231, 231, 231); border: 0px none; }
+.markdown-preview[data-use-github-style] ul, .markdown-preview[data-use-github-style] ol { padding-left: 2em; }
+.markdown-preview[data-use-github-style] ul.no-list, .markdown-preview[data-use-github-style] ol.no-list { padding: 0px; list-style-type: none; }
+.markdown-preview[data-use-github-style] ul ul, .markdown-preview[data-use-github-style] ul ol, .markdown-preview[data-use-github-style] ol ol, .markdown-preview[data-use-github-style] ol ul { margin-top: 0px; margin-bottom: 0px; }
+.markdown-preview[data-use-github-style] li > p { margin-top: 16px; }
+.markdown-preview[data-use-github-style] dl { padding: 0px; }
+.markdown-preview[data-use-github-style] dl dt { padding: 0px; margin-top: 16px; font-size: 1em; font-style: italic; font-weight: bold; }
+.markdown-preview[data-use-github-style] dl dd { padding: 0px 16px; margin-bottom: 16px; }
+.markdown-preview[data-use-github-style] blockquote { padding: 0px 15px; color: rgb(119, 119, 119); border-left: 4px solid rgb(221, 221, 221); }
+.markdown-preview[data-use-github-style] blockquote > :first-child { margin-top: 0px; }
+.markdown-preview[data-use-github-style] blockquote > :last-child { margin-bottom: 0px; }
+.markdown-preview[data-use-github-style] table { display: block; width: 100%; overflow: auto; word-break: keep-all; }
+.markdown-preview[data-use-github-style] table th { font-weight: bold; }
+.markdown-preview[data-use-github-style] table th, .markdown-preview[data-use-github-style] table td { padding: 6px 13px; border: 1px solid rgb(221, 221, 221); }
+.markdown-preview[data-use-github-style] table tr { background-color: rgb(255, 255, 255); border-top: 1px solid rgb(204, 204, 204); }
+.markdown-preview[data-use-github-style] table tr:nth-child(2n) { background-color: rgb(248, 248, 248); }
+.markdown-preview[data-use-github-style] img { max-width: 100%; box-sizing: border-box; }
+.markdown-preview[data-use-github-style] .emoji { max-width: none; }
+.markdown-preview[data-use-github-style] span.frame { display: block; overflow: hidden; }
+.markdown-preview[data-use-github-style] span.frame > span { display: block; float: left; width: auto; padding: 7px; margin: 13px 0px 0px; overflow: hidden; border: 1px solid rgb(221, 221, 221); }
+.markdown-preview[data-use-github-style] span.frame span img { display: block; float: left; }
+.markdown-preview[data-use-github-style] span.frame span span { display: block; padding: 5px 0px 0px; clear: both; color: rgb(51, 51, 51); }
+.markdown-preview[data-use-github-style] span.align-center { display: block; overflow: hidden; clear: both; }
+.markdown-preview[data-use-github-style] span.align-center > span { display: block; margin: 13px auto 0px; overflow: hidden; text-align: center; }
+.markdown-preview[data-use-github-style] span.align-center span img { margin: 0px auto; text-align: center; }
+.markdown-preview[data-use-github-style] span.align-right { display: block; overflow: hidden; clear: both; }
+.markdown-preview[data-use-github-style] span.align-right > span { display: block; margin: 13px 0px 0px; overflow: hidden; text-align: right; }
+.markdown-preview[data-use-github-style] span.align-right span img { margin: 0px; text-align: right; }
+.markdown-preview[data-use-github-style] span.float-left { display: block; float: left; margin-right: 13px; overflow: hidden; }
+.markdown-preview[data-use-github-style] span.float-left span { margin: 13px 0px 0px; }
+.markdown-preview[data-use-github-style] span.float-right { display: block; float: right; margin-left: 13px; overflow: hidden; }
+.markdown-preview[data-use-github-style] span.float-right > span { display: block; margin: 13px auto 0px; overflow: hidden; text-align: right; }
+.markdown-preview[data-use-github-style] code, .markdown-preview[data-use-github-style] tt { padding: 0.2em 0px; margin: 0px; font-size: 85%; background-color: rgba(0, 0, 0, 0.0392157); border-radius: 3px; }
+.markdown-preview[data-use-github-style] code::before, .markdown-preview[data-use-github-style] tt::before, .markdown-preview[data-use-github-style] code::after, .markdown-preview[data-use-github-style] tt::after { letter-spacing: -0.2em; content: " "; }
+.markdown-preview[data-use-github-style] code br, .markdown-preview[data-use-github-style] tt br { display: none; }
+.markdown-preview[data-use-github-style] del code { text-decoration: inherit; }
+.markdown-preview[data-use-github-style] pre > code { padding: 0px; margin: 0px; font-size: 100%; word-break: normal; white-space: pre; background: transparent; border: 0px; }
+.markdown-preview[data-use-github-style] .highlight { margin-bottom: 16px; }
+.markdown-preview[data-use-github-style] .highlight pre, .markdown-preview[data-use-github-style] pre { padding: 16px; overflow: auto; font-size: 85%; line-height: 1.45; background-color: rgb(247, 247, 247); border-radius: 3px; }
+.markdown-preview[data-use-github-style] .highlight pre { margin-bottom: 0px; word-break: normal; }
+.markdown-preview[data-use-github-style] pre { word-wrap: normal; }
+.markdown-preview[data-use-github-style] pre code, .markdown-preview[data-use-github-style] pre tt { display: inline; max-width: initial; padding: 0px; margin: 0px; overflow: initial; line-height: inherit; word-wrap: normal; background-color: transparent; border: 0px; }
+.markdown-preview[data-use-github-style] pre code::before, .markdown-preview[data-use-github-style] pre tt::before, .markdown-preview[data-use-github-style] pre code::after, .markdown-preview[data-use-github-style] pre tt::after { content: normal; }
+.markdown-preview[data-use-github-style] kbd { display: inline-block; padding: 3px 5px; font-size: 11px; line-height: 10px; color: rgb(85, 85, 85); vertical-align: middle; background-color: rgb(252, 252, 252); border-width: 1px; border-style: solid; border-color: rgb(204, 204, 204) rgb(204, 204, 204) rgb(187, 187, 187); border-image: initial; border-radius: 3px; box-shadow: rgb(187, 187, 187) 0px -1px 0px inset; }
+.markdown-preview[data-use-github-style] a { color: rgb(51, 122, 183); }
+.markdown-preview[data-use-github-style] code { color: inherit; }
+.markdown-preview[data-use-github-style] pre.editor-colors { padding: 0.8em 1em; margin-bottom: 1em; font-size: 0.85em; border-radius: 4px; overflow: auto; }
+.scrollbars-visible-always .markdown-preview pre.editor-colors .vertical-scrollbar, .scrollbars-visible-always .markdown-preview pre.editor-colors .horizontal-scrollbar { visibility: hidden; }
+.scrollbars-visible-always .markdown-preview pre.editor-colors:hover .vertical-scrollbar, .scrollbars-visible-always .markdown-preview pre.editor-colors:hover .horizontal-scrollbar { visibility: visible; }
+.markdown-preview .task-list-item-checkbox { position: absolute; margin: 0.25em 0px 0px -1.4em; }
+.bracket-matcher .region {
+  border-bottom: 1px dotted lime;
+  position: absolute;
+}
+
+.spell-check-misspelling .region {
+  border-bottom: 2px dotted rgba(255, 51, 51, 0.75);
+}
+.spell-check-corrections {
+  width: 25em !important;
+}
+
+.markdown-themeable-pdf-page-break {
+  border-top: 2px dotted #0098ff;
+}
+.markdown-themeable-pdf-page-break span {
+  opacity: .35;
+}
+
+pre.editor-colors {
+  background-color: #282c34;
+  color: #abb2bf;
+}
+pre.editor-colors .line.cursor-line {
+  background-color: rgba(153, 187, 255, 0.04);
+}
+pre.editor-colors .invisible {
+  color: #abb2bf;
+}
+pre.editor-colors .cursor {
+  border-left: 2px solid #528bff;
+}
+pre.editor-colors .selection .region {
+  background-color: #3e4451;
+}
+pre.editor-colors .bracket-matcher .region {
+  border-bottom: 1px solid #528bff;
+  box-sizing: border-box;
+}
+pre.editor-colors .invisible-character {
+  color: rgba(171, 178, 191, 0.15);
+}
+pre.editor-colors .indent-guide {
+  color: rgba(171, 178, 191, 0.15);
+}
+pre.editor-colors .wrap-guide {
+  background-color: rgba(171, 178, 191, 0.15);
+}
+pre.editor-colors .find-result .region.region.region,
+pre.editor-colors .current-result .region.region.region {
+  border-radius: 2px;
+  background-color: rgba(82, 139, 255, 0.24);
+  transition: border-color 0.4s;
+}
+pre.editor-colors .find-result .region.region.region {
+  border: 2px solid transparent;
+}
+pre.editor-colors .current-result .region.region.region {
+  border: 2px solid #528bff;
+  transition-duration: .1s;
+}
+pre.editor-colors .gutter .line-number {
+  color: #636d83;
+  -webkit-font-smoothing: antialiased;
+}
+pre.editor-colors .gutter .line-number.cursor-line {
+  color: #abb2bf;
+  background-color: #2c313a;
+}
+pre.editor-colors .gutter .line-number.cursor-line-no-selection {
+  background-color: transparent;
+}
+pre.editor-colors .gutter .line-number .icon-right {
+  color: #abb2bf;
+}
+pre.editor-colors .gutter:not(.git-diff-icon) .line-number.git-line-removed.git-line-removed::before {
+  bottom: -3px;
+}
+pre.editor-colors .gutter:not(.git-diff-icon) .line-number.git-line-removed::after {
+  content: "";
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  width: 25px;
+  border-bottom: 1px dotted rgba(224, 82, 82, 0.5);
+  pointer-events: none;
+}
+pre.editor-colors .gutter .line-number.folded,
+pre.editor-colors .gutter .line-number:after,
+pre.editor-colors .fold-marker:after {
+  color: #abb2bf;
+}
+.syntax--comment {
+  color: #5c6370;
+  font-style: italic;
+}
+.syntax--comment .syntax--markup.syntax--link {
+  color: #5c6370;
+}
+.syntax--entity.syntax--name.syntax--type {
+  color: #e5c07b;
+}
+.syntax--entity.syntax--other.syntax--inherited-class {
+  color: #98c379;
+}
+.syntax--keyword {
+  color: #c678dd;
+}
+.syntax--keyword.syntax--control {
+  color: #c678dd;
+}
+.syntax--keyword.syntax--operator {
+  color: #abb2bf;
+}
+.syntax--keyword.syntax--other.syntax--special-method {
+  color: #61afef;
+}
+.syntax--keyword.syntax--other.syntax--unit {
+  color: #d19a66;
+}
+.syntax--storage {
+  color: #c678dd;
+}
+.syntax--storage.syntax--type.syntax--annotation,
+.syntax--storage.syntax--type.syntax--primitive {
+  color: #c678dd;
+}
+.syntax--storage.syntax--modifier.syntax--package,
+.syntax--storage.syntax--modifier.syntax--import {
+  color: #abb2bf;
+}
+.syntax--constant {
+  color: #d19a66;
+}
+.syntax--constant.syntax--variable {
+  color: #d19a66;
+}
+.syntax--constant.syntax--character.syntax--escape {
+  color: #56b6c2;
+}
+.syntax--constant.syntax--numeric {
+  color: #d19a66;
+}
+.syntax--constant.syntax--other.syntax--color {
+  color: #56b6c2;
+}
+.syntax--constant.syntax--other.syntax--symbol {
+  color: #56b6c2;
+}
+.syntax--variable {
+  color: #e06c75;
+}
+.syntax--variable.syntax--interpolation {
+  color: #be5046;
+}
+.syntax--variable.syntax--parameter {
+  color: #abb2bf;
+}
+.syntax--string {
+  color: #98c379;
+}
+.syntax--string.syntax--regexp {
+  color: #56b6c2;
+}
+.syntax--string.syntax--regexp .syntax--source.syntax--ruby.syntax--embedded {
+  color: #e5c07b;
+}
+.syntax--string.syntax--other.syntax--link {
+  color: #e06c75;
+}
+.syntax--punctuation.syntax--definition.syntax--comment {
+  color: #5c6370;
+}
+.syntax--punctuation.syntax--definition.syntax--method-parameters,
+.syntax--punctuation.syntax--definition.syntax--function-parameters,
+.syntax--punctuation.syntax--definition.syntax--parameters,
+.syntax--punctuation.syntax--definition.syntax--separator,
+.syntax--punctuation.syntax--definition.syntax--seperator,
+.syntax--punctuation.syntax--definition.syntax--array {
+  color: #abb2bf;
+}
+.syntax--punctuation.syntax--definition.syntax--heading,
+.syntax--punctuation.syntax--definition.syntax--identity {
+  color: #61afef;
+}
+.syntax--punctuation.syntax--definition.syntax--bold {
+  color: #e5c07b;
+  font-weight: bold;
+}
+.syntax--punctuation.syntax--definition.syntax--italic {
+  color: #c678dd;
+  font-style: italic;
+}
+.syntax--punctuation.syntax--section.syntax--embedded {
+  color: #be5046;
+}
+.syntax--punctuation.syntax--section.syntax--method,
+.syntax--punctuation.syntax--section.syntax--class,
+.syntax--punctuation.syntax--section.syntax--inner-class {
+  color: #abb2bf;
+}
+.syntax--support.syntax--class {
+  color: #e5c07b;
+}
+.syntax--support.syntax--type {
+  color: #56b6c2;
+}
+.syntax--support.syntax--function {
+  color: #56b6c2;
+}
+.syntax--support.syntax--function.syntax--any-method {
+  color: #61afef;
+}
+.syntax--entity.syntax--name.syntax--function {
+  color: #61afef;
+}
+.syntax--entity.syntax--name.syntax--class,
+.syntax--entity.syntax--name.syntax--type.syntax--class {
+  color: #e5c07b;
+}
+.syntax--entity.syntax--name.syntax--section {
+  color: #61afef;
+}
+.syntax--entity.syntax--name.syntax--tag {
+  color: #e06c75;
+}
+.syntax--entity.syntax--other.syntax--attribute-name {
+  color: #d19a66;
+}
+.syntax--entity.syntax--other.syntax--attribute-name.syntax--id {
+  color: #61afef;
+}
+.syntax--meta.syntax--class {
+  color: #e5c07b;
+}
+.syntax--meta.syntax--class.syntax--body {
+  color: #abb2bf;
+}
+.syntax--meta.syntax--method-call,
+.syntax--meta.syntax--method {
+  color: #abb2bf;
+}
+.syntax--meta.syntax--definition.syntax--variable {
+  color: #e06c75;
+}
+.syntax--meta.syntax--link {
+  color: #d19a66;
+}
+.syntax--meta.syntax--require {
+  color: #61afef;
+}
+.syntax--meta.syntax--selector {
+  color: #c678dd;
+}
+.syntax--meta.syntax--separator {
+  background-color: #373b41;
+  color: #abb2bf;
+}
+.syntax--meta.syntax--tag {
+  color: #abb2bf;
+}
+.syntax--underline {
+  text-decoration: underline;
+}
+.syntax--none {
+  color: #abb2bf;
+}
+.syntax--invalid.syntax--deprecated {
+  color: #523d14 !important;
+  background-color: #e0c285 !important;
+}
+.syntax--invalid.syntax--illegal {
+  color: white !important;
+  background-color: #e05252 !important;
+}
+.syntax--markup.syntax--bold {
+  color: #d19a66;
+  font-weight: bold;
+}
+.syntax--markup.syntax--changed {
+  color: #c678dd;
+}
+.syntax--markup.syntax--deleted {
+  color: #e06c75;
+}
+.syntax--markup.syntax--italic {
+  color: #c678dd;
+  font-style: italic;
+}
+.syntax--markup.syntax--heading {
+  color: #e06c75;
+}
+.syntax--markup.syntax--heading .syntax--punctuation.syntax--definition.syntax--heading {
+  color: #61afef;
+}
+.syntax--markup.syntax--link {
+  color: #56b6c2;
+}
+.syntax--markup.syntax--inserted {
+  color: #98c379;
+}
+.syntax--markup.syntax--quote {
+  color: #d19a66;
+}
+.syntax--markup.syntax--raw {
+  color: #98c379;
+}
+.syntax--source.syntax--c .syntax--keyword.syntax--operator {
+  color: #c678dd;
+}
+.syntax--source.syntax--cpp .syntax--keyword.syntax--operator {
+  color: #c678dd;
+}
+.syntax--source.syntax--cs .syntax--keyword.syntax--operator {
+  color: #c678dd;
+}
+.syntax--source.syntax--css .syntax--property-name,
+.syntax--source.syntax--css .syntax--property-value {
+  color: #828997;
+}
+.syntax--source.syntax--css .syntax--property-name.syntax--support,
+.syntax--source.syntax--css .syntax--property-value.syntax--support {
+  color: #abb2bf;
+}
+.syntax--source.syntax--gfm .syntax--markup {
+  -webkit-font-smoothing: auto;
+}
+.syntax--source.syntax--gfm .syntax--link .syntax--entity {
+  color: #61afef;
+}
+.syntax--source.syntax--go .syntax--storage.syntax--type.syntax--string {
+  color: #c678dd;
+}
+.syntax--source.syntax--ini .syntax--keyword.syntax--other.syntax--definition.syntax--ini {
+  color: #e06c75;
+}
+.syntax--source.syntax--java .syntax--storage.syntax--modifier.syntax--import {
+  color: #e5c07b;
+}
+.syntax--source.syntax--java .syntax--storage.syntax--type {
+  color: #e5c07b;
+}
+.syntax--source.syntax--java .syntax--keyword.syntax--operator.syntax--instanceof {
+  color: #c678dd;
+}
+.syntax--source.syntax--java-properties .syntax--meta.syntax--key-pair {
+  color: #e06c75;
+}
+.syntax--source.syntax--java-properties .syntax--meta.syntax--key-pair > .syntax--punctuation {
+  color: #abb2bf;
+}
+.syntax--source.syntax--js .syntax--keyword.syntax--operator {
+  color: #56b6c2;
+}
+.syntax--source.syntax--js .syntax--keyword.syntax--operator.syntax--delete,
+.syntax--source.syntax--js .syntax--keyword.syntax--operator.syntax--in,
+.syntax--source.syntax--js .syntax--keyword.syntax--operator.syntax--of,
+.syntax--source.syntax--js .syntax--keyword.syntax--operator.syntax--instanceof,
+.syntax--source.syntax--js .syntax--keyword.syntax--operator.syntax--new,
+.syntax--source.syntax--js .syntax--keyword.syntax--operator.syntax--typeof,
+.syntax--source.syntax--js .syntax--keyword.syntax--operator.syntax--void {
+  color: #c678dd;
+}
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--dictionary.syntax--json > .syntax--string.syntax--quoted.syntax--json {
+  color: #e06c75;
+}
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--dictionary.syntax--json > .syntax--string.syntax--quoted.syntax--json > .syntax--punctuation.syntax--string {
+  color: #e06c75;
+}
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--dictionary.syntax--json > .syntax--value.syntax--json > .syntax--string.syntax--quoted.syntax--json,
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--array.syntax--json > .syntax--value.syntax--json > .syntax--string.syntax--quoted.syntax--json,
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--dictionary.syntax--json > .syntax--value.syntax--json > .syntax--string.syntax--quoted.syntax--json > .syntax--punctuation,
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--array.syntax--json > .syntax--value.syntax--json > .syntax--string.syntax--quoted.syntax--json > .syntax--punctuation {
+  color: #98c379;
+}
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--dictionary.syntax--json > .syntax--constant.syntax--language.syntax--json,
+.syntax--source.syntax--json .syntax--meta.syntax--structure.syntax--array.syntax--json > .syntax--constant.syntax--language.syntax--json {
+  color: #56b6c2;
+}
+.syntax--source.syntax--ruby .syntax--constant.syntax--other.syntax--symbol > .syntax--punctuation {
+  color: inherit;
+}
+.syntax--source.syntax--python .syntax--keyword.syntax--operator.syntax--logical.syntax--python {
+  color: #c678dd;
+}
+.syntax--source.syntax--python .syntax--variable.syntax--parameter {
+  color: #d19a66;
+}
+</style>
+  </head>
+  <body class='markdown-preview' data-use-github-style><h1 id="database-design-i">Database Design I</h1>
+<h3 id="study-guide">Study Guide</h3>
+<h4 id="-span-style-color-46d66f-chapter-1-2-span-"><span style="color: #46d66f">Chapter 1 &amp; 2</span></h4>
+<ul>
+<li>no questions :)</li>
+</ul>
+<h4 id="-span-style-color-46d66f-chapter-3-span-"><span style="color: #46d66f">Chapter 3</span></h4>
+<ul>
+<li>Be able to draw ER Diagram<h5 id="-see-assignment-1-https-valdostaedu-my-sharepoint-com-personal-sdholcomb_valdosta_edu-_layouts-15-guestaccess-aspx-folderid-01d4eea883e9d43e69161d9d2c1cd3c7a-authkey-asu5alo_3eighg43f9z9jb8-expiration-2017-05-09t19-3a52-3a47-000z-"><a href="https://valdostaedu-my.sharepoint.com/personal/sdholcomb_valdosta_edu/_layouts/15/guestaccess.aspx?folderid=01d4eea883e9d43e69161d9d2c1cd3c7a&amp;authkey=ASU5aLO_3eiGHg43F9Z9jB8&amp;expiration=2017-05-09T19%3a52%3a47.000Z">See Assignment 1</a></h5>
+</li>
+</ul>
+<hr>
+<h4 id="-span-style-color-46d66f-chapter-5-span-"><span style="color: #46d66f">Chapter 5</span></h4>
+<ul>
+<li>Explain constraints on relational database</li>
+</ul>
+<ul>
+<li><strong>Superkey</strong><ul>
+<li>Attribute set which is able to uniquely identify a tuple</li>
+<li>May contain redundant database</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Key</strong><ul>
+<li>Attribute set which is able to uniquely identify a tuple</li>
+<li>if we remove any attribute, it is no longer a supekey (minimal)</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Candidate Key</strong><ul>
+<li>Any Key</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Primary Key</strong><ul>
+<li>selected as the primary among the candidate keys</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Unique Key</strong><ul>
+<li>Any other candidate key not selected as Primary</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Foreign Key</strong><ul>
+<li>Set of attributes which refer to PK</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Be able to identify PK and FK</li>
+</ul>
+<hr>
+<h4 id="-span-style-color-46d66f-chapter-6-7-span-"><span style="color: #46d66f">Chapter 6 &amp; 7</span></h4>
+<ul>
+<li><strong>create table/view</strong><ul>
+<li>Table<pre class="editor-colors lang-sql"><div class="line"><span class="syntax--source syntax--sql"><span class="syntax--meta syntax--create syntax--sql"><span class="syntax--keyword syntax--other syntax--create syntax--sql"><span>create</span></span><span>&nbsp;</span><span class="syntax--keyword syntax--other syntax--sql"><span>table</span></span><span>&nbsp;</span><span class="syntax--entity syntax--name syntax--function syntax--sql"><span>tablename</span></span></span><span>(</span></span></div><div class="line"><span class="syntax--source syntax--sql"><span>Fname&nbsp;</span><span class="syntax--storage syntax--type syntax--sql"><span>varchar</span></span><span>(</span><span class="syntax--constant syntax--numeric syntax--sql"><span>15</span></span><span>)</span><span>,</span></span></div><div class="line"><span class="syntax--source syntax--sql"><span>Age&nbsp;</span><span class="syntax--storage syntax--type syntax--sql"><span>int</span></span><span>,</span></span></div><div class="line"><span class="syntax--source syntax--sql"><span>Dno&nbsp;</span><span class="syntax--storage syntax--type syntax--sql"><span>int</span></span><span>,</span></span></div><div class="line"><span class="syntax--source syntax--sql"><span>SSN&nbsp;</span><span class="syntax--storage syntax--type syntax--sql"><span>char</span></span><span>(</span><span class="syntax--constant syntax--numeric syntax--sql"><span>9</span></span><span>)</span><span>,</span></span></div><div class="line"><span class="syntax--source syntax--sql"><span class="syntax--storage syntax--modifier syntax--sql"><span>Primary&nbsp;Key</span></span><span>&nbsp;(SSN),</span></span></div><div class="line"><span class="syntax--source syntax--sql"><span class="syntax--storage syntax--modifier syntax--sql"><span>Foreign&nbsp;Key</span></span><span>&nbsp;(Dno)&nbsp;</span><span class="syntax--storage syntax--modifier syntax--sql"><span>References</span></span><span>&nbsp;OtherTable(Dno)</span></span></div><div class="line"><span class="syntax--source syntax--sql"><span>);</span></span></div></pre>
+</li>
+<li>view<pre class="editor-colors lang-sql"><div class="line"><span class="syntax--source syntax--sql"><span class="syntax--meta syntax--create syntax--sql"><span class="syntax--keyword syntax--other syntax--create syntax--sql"><span>create</span></span><span>&nbsp;</span><span class="syntax--keyword syntax--other syntax--sql"><span>view</span></span><span>&nbsp;</span><span class="syntax--entity syntax--name syntax--function syntax--sql"><span>viewname</span></span></span></span></div><div class="line"><span class="syntax--source syntax--sql"><span class="syntax--keyword syntax--other syntax--alias syntax--sql"><span>as</span></span><span>&nbsp;</span><span class="syntax--keyword syntax--other syntax--DML syntax--sql"><span>select</span></span><span>&nbsp;attributes</span></span></div><div class="line"><span class="syntax--source syntax--sql"><span class="syntax--keyword syntax--other syntax--DML syntax--sql"><span>from</span></span><span>&nbsp;tables</span></span></div><div class="line"><span class="syntax--source syntax--sql"><span class="syntax--keyword syntax--other syntax--DML syntax--sql"><span>where</span></span><span>&nbsp;conditions&nbsp;</span><span class="syntax--keyword syntax--operator syntax--comparison syntax--sql"><span>=</span></span><span>&nbsp;true;</span></span></div></pre>
+</li>
+</ul>
+</li>
+<li><strong>Drop Table</strong><pre class="editor-colors lang-sql"><div class="line"><span class="syntax--source syntax--sql"><span class="syntax--meta syntax--drop syntax--sql"><span class="syntax--keyword syntax--other syntax--drop syntax--sql"><span>drop</span></span><span>&nbsp;</span><span class="syntax--keyword syntax--other syntax--sql"><span>table</span></span><span>&nbsp;</span><span class="syntax--entity syntax--name syntax--function syntax--sql"><span>tablename</span></span></span><span>;</span></span></div></pre>
+</li>
+<li><strong>Alter/Add column</strong><pre class="editor-colors lang-sql"><div class="line"><span class="syntax--source syntax--sql"><span class="syntax--meta syntax--alter syntax--sql"><span class="syntax--keyword syntax--other syntax--create syntax--sql"><span>alter</span></span><span>&nbsp;</span><span class="syntax--keyword syntax--other syntax--table syntax--sql"><span>table</span></span><span>&nbsp;</span><span class="syntax--entity syntax--name syntax--function syntax--sql"><span>tablename</span></span></span></span></div><div class="line"><span class="syntax--source syntax--sql"><span>add&nbsp;columnname&nbsp;</span><span class="syntax--storage syntax--type syntax--sql"><span>varchar</span></span><span>(</span><span class="syntax--constant syntax--numeric syntax--sql"><span>20</span></span><span>)</span><span>;</span></span></div></pre>
+</li>
+<li><strong>Alter/Drop column</strong><pre class="editor-colors lang-sql"><div class="line"><span class="syntax--source syntax--sql"><span class="syntax--meta syntax--alter syntax--sql"><span class="syntax--keyword syntax--other syntax--create syntax--sql"><span>alter</span></span><span>&nbsp;</span><span class="syntax--keyword syntax--other syntax--table syntax--sql"><span>table</span></span><span>&nbsp;</span><span class="syntax--entity syntax--name syntax--function syntax--sql"><span>tablename</span></span></span></span></div><div class="line"><span class="syntax--source syntax--sql"><span>drop&nbsp;column&nbsp;columnname;</span></span></div></pre>
+</li>
+<li><strong>Insert into values</strong><pre class="editor-colors lang-sql"><div class="line"><span class="syntax--source syntax--sql"><span class="syntax--keyword syntax--other syntax--DML syntax--sql"><span>insert&nbsp;into</span></span><span>&nbsp;tablename&nbsp;</span><span class="syntax--keyword syntax--other syntax--DML syntax--II syntax--sql"><span>values</span></span><span>(</span><span class="syntax--string syntax--quoted syntax--double syntax--sql"><span class="syntax--punctuation syntax--definition syntax--string syntax--begin syntax--sql"><span>&quot;</span></span><span>name</span><span class="syntax--punctuation syntax--definition syntax--string syntax--end syntax--sql"><span>&quot;</span></span></span><span>,&nbsp;</span><span class="syntax--constant syntax--numeric syntax--sql"><span>5</span></span><span>);</span></span></div></pre>
+</li>
+<li><strong>Delete from where</strong><pre class="editor-colors lang-sql"><div class="line"><span class="syntax--source syntax--sql"><span class="syntax--keyword syntax--other syntax--DML syntax--sql"><span>delete</span></span><span>&nbsp;</span><span class="syntax--keyword syntax--other syntax--DML syntax--sql"><span>from</span></span><span>&nbsp;tablename</span></span></div><div class="line"><span class="syntax--source syntax--sql"><span class="syntax--keyword syntax--other syntax--DML syntax--sql"><span>where</span></span><span>&nbsp;condition&nbsp;</span><span class="syntax--keyword syntax--operator syntax--comparison syntax--sql"><span>=</span></span><span>&nbsp;true;</span></span></div></pre>
+</li>
+<li><strong>Update set where</strong><pre class="editor-colors lang-sql"><div class="line"><span class="syntax--source syntax--sql"><span class="syntax--keyword syntax--other syntax--DML syntax--sql"><span>update</span></span><span>&nbsp;tablename</span></span></div><div class="line"><span class="syntax--source syntax--sql"><span class="syntax--keyword syntax--other syntax--DML syntax--sql"><span>set</span></span><span>&nbsp;value&nbsp;</span><span class="syntax--keyword syntax--operator syntax--comparison syntax--sql"><span>=</span></span><span>&nbsp;</span><span class="syntax--constant syntax--numeric syntax--sql"><span>5</span></span></span></div><div class="line"><span class="syntax--source syntax--sql"><span class="syntax--keyword syntax--other syntax--DML syntax--sql"><span>where</span></span><span>&nbsp;condition&nbsp;</span><span class="syntax--keyword syntax--operator syntax--comparison syntax--sql"><span>=</span></span><span>&nbsp;true;</span></span></div></pre>
+</li>
+<li><strong>select</strong><pre class="editor-colors lang-sql"><div class="line"><span class="syntax--source syntax--sql"><span class="syntax--keyword syntax--other syntax--DML syntax--sql"><span>select</span></span><span>&nbsp;</span><span class="syntax--constant syntax--other syntax--database-name syntax--sql"><span>t</span></span><span>.</span><span class="syntax--constant syntax--other syntax--table-name syntax--sql"><span>attributes</span></span></span></div><div class="line"><span class="syntax--source syntax--sql"><span class="syntax--keyword syntax--other syntax--DML syntax--sql"><span>from</span></span><span>&nbsp;tablename&nbsp;t</span></span></div><div class="line"><span class="syntax--source syntax--sql"><span class="syntax--keyword syntax--other syntax--DML syntax--sql"><span>where</span></span><span>&nbsp;condition&nbsp;</span><span class="syntax--keyword syntax--operator syntax--comparison syntax--sql"><span>=</span></span><span>&nbsp;true;</span></span></div><div class="line"><span class="syntax--source syntax--sql"><span class="syntax--keyword syntax--other syntax--DML syntax--sql"><span>group&nbsp;by</span></span><span>&nbsp;</span><span class="syntax--constant syntax--other syntax--database-name syntax--sql"><span>t</span></span><span>.</span><span class="syntax--constant syntax--other syntax--table-name syntax--sql"><span>something</span></span></span></div><div class="line"><span class="syntax--source syntax--sql"><span class="syntax--keyword syntax--other syntax--DML syntax--sql"><span>having</span></span><span>&nbsp;</span><span class="syntax--support syntax--function syntax--aggregate syntax--sql"><span>count</span></span><span>(</span><span class="syntax--keyword syntax--operator syntax--star syntax--sql"><span>*</span></span><span>)&nbsp;</span><span class="syntax--keyword syntax--operator syntax--comparison syntax--sql"><span>&gt;</span></span><span>&nbsp;</span><span class="syntax--constant syntax--numeric syntax--sql"><span>0</span></span></span></div><div class="line"><span class="syntax--source syntax--sql"><span class="syntax--keyword syntax--other syntax--DML syntax--sql"><span>order&nbsp;by</span></span><span>&nbsp;</span><span class="syntax--constant syntax--other syntax--database-name syntax--sql"><span>t</span></span><span>.</span><span class="syntax--constant syntax--other syntax--table-name syntax--sql"><span>something</span></span><span>&nbsp;</span><span class="syntax--keyword syntax--other syntax--order syntax--sql"><span>DESC</span></span><span>;</span></span></div></pre>
+</li>
+<li><strong>Aggregate functions</strong><ul>
+<li>count, sum, max, min, avg</li>
+<li>Can only be used in select or having clause<pre class="editor-colors lang-sql"><div class="line"><span class="syntax--source syntax--sql"><span class="syntax--keyword syntax--other syntax--DML syntax--sql"><span>select</span></span><span>&nbsp;</span><span class="syntax--support syntax--function syntax--aggregate syntax--sql"><span>max</span></span><span>(salary),&nbsp;</span><span class="syntax--support syntax--function syntax--aggregate syntax--sql"><span>avg</span></span><span>(salary),&nbsp;</span><span class="syntax--support syntax--function syntax--aggregate syntax--sql"><span>count</span></span><span>(salary)</span></span></div><div class="line"><span class="syntax--source syntax--sql"><span class="syntax--keyword syntax--other syntax--DML syntax--sql"><span>from</span></span><span>&nbsp;employee;</span></span></div></pre>
+</li>
+</ul>
+</li>
+<li><strong>Nested functions</strong><ul>
+<li>This can vary quite a bit. So I&#39;ll provide multiple examples<pre class="editor-colors lang-sql"><div class="line"><span class="syntax--source syntax--sql"><span class="syntax--keyword syntax--other syntax--DML syntax--sql"><span>select</span></span><span>&nbsp;Dno&nbsp;</span><span class="syntax--support syntax--function syntax--aggregate syntax--sql"><span>count</span></span><span>(</span><span class="syntax--keyword syntax--operator syntax--star syntax--sql"><span>*</span></span><span>)</span></span></div><div class="line"><span class="syntax--source syntax--sql"><span class="syntax--keyword syntax--other syntax--DML syntax--sql"><span>From</span></span><span>&nbsp;employee</span></span></div><div class="line"><span class="syntax--source syntax--sql"><span class="syntax--keyword syntax--other syntax--DML syntax--sql"><span>Where</span></span><span>&nbsp;Salary</span><span class="syntax--keyword syntax--operator syntax--comparison syntax--sql"><span>&gt;</span></span><span class="syntax--constant syntax--numeric syntax--sql"><span>40000</span></span><span>&nbsp;</span><span class="syntax--keyword syntax--other syntax--DML syntax--sql"><span>and</span></span><span>&nbsp;Dno&nbsp;</span><span class="syntax--keyword syntax--other syntax--data-integrity syntax--sql"><span>in</span></span><span>&nbsp;(</span><span class="syntax--keyword syntax--other syntax--DML syntax--sql"><span>select</span></span><span>&nbsp;Dno&nbsp;</span><span class="syntax--keyword syntax--other syntax--DML syntax--sql"><span>from</span></span><span>&nbsp;Employee</span></span></div><div class="line"><span class="syntax--source syntax--sql"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="syntax--keyword syntax--other syntax--DML syntax--sql"><span>group&nbsp;by</span></span><span>&nbsp;Dno</span></span></div><div class="line"><span class="syntax--source syntax--sql"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="syntax--keyword syntax--other syntax--DML syntax--sql"><span>having</span></span><span>&nbsp;</span><span class="syntax--support syntax--function syntax--aggregate syntax--sql"><span>count</span></span><span>(</span><span class="syntax--keyword syntax--operator syntax--star syntax--sql"><span>*</span></span><span>)&nbsp;</span><span class="syntax--keyword syntax--operator syntax--comparison syntax--sql"><span>&gt;</span></span><span>&nbsp;</span><span class="syntax--constant syntax--numeric syntax--sql"><span>5</span></span><span>)</span></span></div><div class="line"><span class="syntax--source syntax--sql"><span class="syntax--keyword syntax--other syntax--DML syntax--sql"><span>group&nbsp;by</span></span><span>&nbsp;Dno;</span></span></div></pre>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="-span-style-color-46d66f-chapter-8-span-"><span style="color: #46d66f">Chapter 8</span></h4>
+<h5 id="-see-assignment4-https-valdostaedu-my-sharepoint-com-personal-sdholcomb_valdosta_edu-_layouts-15-guestaccess-aspx-folderid-01d4eea883e9d43e69161d9d2c1cd3c7a-authkey-asu5alo_3eighg43f9z9jb8-expiration-2017-05-09t19-3a52-3a47-000z-"><a href="https://valdostaedu-my.sharepoint.com/personal/sdholcomb_valdosta_edu/_layouts/15/guestaccess.aspx?folderid=01d4eea883e9d43e69161d9d2c1cd3c7a&amp;authkey=ASU5aLO_3eiGHg43F9Z9jB8&amp;expiration=2017-05-09T19%3a52%3a47.000Z">See Assignment4 </a></h5>
+<ul>
+<li>Given two tables, create relational algebra</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">P</th>
+<th style="text-align:left">Q</th>
+<th style="text-align:left">R</th>
+<th>T1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">10</td>
+<td style="text-align:left">a</td>
+<td style="text-align:left">5</td>
+</tr>
+<tr>
+<td style="text-align:left">15</td>
+<td style="text-align:left">b</td>
+<td style="text-align:left">8</td>
+</tr>
+<tr>
+<td style="text-align:left">25</td>
+<td style="text-align:left">a</td>
+<td style="text-align:left">6</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">A</th>
+<th style="text-align:left">B</th>
+<th style="text-align:left">C</th>
+<th>T2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">10</td>
+<td style="text-align:left">b</td>
+<td style="text-align:left">5</td>
+</tr>
+<tr>
+<td style="text-align:left">25</td>
+<td style="text-align:left">c</td>
+<td style="text-align:left">8</td>
+</tr>
+<tr>
+<td style="text-align:left">10</td>
+<td style="text-align:left">b</td>
+<td style="text-align:left">6</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">A</th>
+<th style="text-align:left">C</th>
+<th>T3</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">10</td>
+<td style="text-align:left">6    </td>
+</tr>
+<tr>
+<td style="text-align:left">10</td>
+<td style="text-align:left">5    </td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>T1 |x| T2, T1.P = T2.A</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">P</th>
+<th style="text-align:left">Q</th>
+<th style="text-align:left">R</th>
+<th style="text-align:left">A</th>
+<th style="text-align:left">B</th>
+<th style="text-align:left">C  </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">10</td>
+<td style="text-align:left">a</td>
+<td style="text-align:left">5</td>
+<td style="text-align:left">10</td>
+<td style="text-align:left">b</td>
+<td style="text-align:left">6</td>
+</tr>
+<tr>
+<td style="text-align:left">10</td>
+<td style="text-align:left">a</td>
+<td style="text-align:left">5</td>
+<td style="text-align:left">10</td>
+<td style="text-align:left">b</td>
+<td style="text-align:left">5</td>
+</tr>
+<tr>
+<td style="text-align:left">10</td>
+<td style="text-align:left">a</td>
+<td style="text-align:left">6</td>
+<td style="text-align:left">10</td>
+<td style="text-align:left">b</td>
+<td style="text-align:left">3</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>T1 |x| T2, T1.Q = T2.B</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">P</th>
+<th style="text-align:left">Q</th>
+<th style="text-align:left">R</th>
+<th style="text-align:left">A</th>
+<th style="text-align:left">B</th>
+<th style="text-align:left">C  </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">15</td>
+<td style="text-align:left">b</td>
+<td style="text-align:left">8</td>
+<td style="text-align:left">10</td>
+<td style="text-align:left">b</td>
+<td style="text-align:left">6</td>
+</tr>
+<tr>
+<td style="text-align:left">15</td>
+<td style="text-align:left">b</td>
+<td style="text-align:left">8</td>
+<td style="text-align:left">10</td>
+<td style="text-align:left">b</td>
+<td style="text-align:left">5</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>T1 ∪ T2</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">P</th>
+<th style="text-align:left">Q</th>
+<th style="text-align:left">R</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">10</td>
+<td style="text-align:left">a</td>
+<td style="text-align:left">5</td>
+</tr>
+<tr>
+<td style="text-align:left">15</td>
+<td style="text-align:left">b</td>
+<td style="text-align:left">8</td>
+</tr>
+<tr>
+<td style="text-align:left">25</td>
+<td style="text-align:left">a</td>
+<td style="text-align:left">6</td>
+</tr>
+<tr>
+<td style="text-align:left">10</td>
+<td style="text-align:left">b</td>
+<td style="text-align:left">6</td>
+</tr>
+<tr>
+<td style="text-align:left">25</td>
+<td style="text-align:left">c</td>
+<td style="text-align:left">3</td>
+</tr>
+<tr>
+<td style="text-align:left">10</td>
+<td style="text-align:left">b</td>
+<td style="text-align:left">5</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>T1 ∩ T2</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">P</th>
+<th style="text-align:left">Q</th>
+<th style="text-align:left">R</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">-</td>
+<td style="text-align:left">-</td>
+<td style="text-align:left">-</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>T1 - T2</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">P</th>
+<th style="text-align:left">Q</th>
+<th style="text-align:left">R</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">10</td>
+<td style="text-align:left">a</td>
+<td style="text-align:left">5</td>
+</tr>
+<tr>
+<td style="text-align:left">15</td>
+<td style="text-align:left">b</td>
+<td style="text-align:left">8</td>
+</tr>
+<tr>
+<td style="text-align:left">25</td>
+<td style="text-align:left">a</td>
+<td style="text-align:left">6</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>T1 |x| T2, T1.P = T2.A AND T1.R = T2.C</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">P</th>
+<th style="text-align:left">Q</th>
+<th style="text-align:left">R</th>
+<th style="text-align:left">A</th>
+<th style="text-align:left">B</th>
+<th style="text-align:left">C  </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">10</td>
+<td style="text-align:left">a</td>
+<td style="text-align:left">5</td>
+<td style="text-align:left">10</td>
+<td style="text-align:left">b</td>
+<td style="text-align:left">5</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>T2 / T3</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">B</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">b</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Given query, create relational algebra</li>
+</ul>
+<p><strong>1. Find names of pilots certified for aircraft &#39;Boeing-777&#39;</strong></p>
+<p>BOEINGS ← σ <sub>aname = ‘Boeing-777’</sub> (AIRCRAFT)</p>
+<p>CERTIFIED_BOEINGS ← CERTIFIED |x| <sub>aid = aid</sub> BOEINGS</p>
+<p>CERTIFIED_PILOTS ← CERTIFIED_BOEINGS |x| <sub>eid = eid</sub> (EMPLOYEE)</p>
+<p>RESULT ← π <sub>ename</sub> (CERTIFIED_PILOTS)</p>
+<p><strong>2. Find names of pilots operating planes with cruising range &gt; 3000</strong></p>
+<p>RIGHT_AIRCRAFT ← σ <sub>cruisingrange &gt; 3000</sub> (AIRCRAFT)</p>
+<p>CERTIFIED_AIRCRAFT ← CERTIFIED |x| <sub>aid = aid</sub> RIGHT_AIRCRAFT</p>
+<p>CERTIFIED_PILOTS ← CERTIFIED_AIRCRAFT |x| <sub>eid = eid</sub> (EMPLOYEE)</p>
+<p>RESULT ← π <sub>ename</sub> (CERTIFIED_PILOTS)</p>
+<hr>
+<h4 id="-span-style-color-46d66f-chapter-9-span-"><span style="color: #46d66f">Chapter 9</span></h4>
+<ul>
+<li><p>Be able to convert ER diagram to relational schema</p>
+</li>
+<li><p><strong>Step 1</strong>: Map regular entity types</p>
+<ul>
+<li>Create relation for each non-weak entity</li>
+<li>Only include atomic component attributes</li>
+<li>Choose one of the keys as primary key</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Step 2</strong>: Map weak entity types<ul>
+<li>Create relation and add all atomic attributes</li>
+<li>Add PK of owner as FK</li>
+<li>PK of this table is combo of owner PK and partial key of this table</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Step 3</strong>: Map Binary 1:1 relation types<ul>
+<li>Add PK of one relationship as FK on the other</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Step 4</strong>: Map Binary 1:N relation types<ul>
+<li>Add PK of one-side entity as FK in the other</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Step 5</strong>: Map Binary M:N<ul>
+<li>Create separate relation</li>
+<li>Add PK of both sides as foreign keys in relation</li>
+<li>combo of the two PKs will form PK of this table</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Step 6</strong>: Map multivalued attributes (A)<ul>
+<li>create new relation R</li>
+<li>combination of A and PK of relation forms PK of R</li>
+<li>If composite, add atomic components as attributes of R</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><strong>Step 7</strong>: Map N-ary<ul>
+<li>Create new relation S</li>
+<li>Add PKs of all participating entity types as FKs</li>
+<li>the PK of S is combo of those foreign keys (excluding 1-side entity types)</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h4 id="-span-style-color-46d66f-chapter-14-span-"><span style="color: #46d66f">Chapter 14</span></h4>
+<ul>
+<li><p>Explain 1nf, 2nf, 3nf, bcnf</p>
+<ul>
+<li><p>1nf: The key (all values must be atomic)</p>
+</li>
+<li><p>2nf: The whole key (no partial dependencies)</p>
+</li>
+<li><p>3nf: And Nothing but the key (no transitive dependencies)</p>
+</li>
+<li><p>BCNF: All items with dependencies must be superkey</p>
+</li>
+</ul>
+</li>
+<li>Given relation, normalize it to certain normal form<h5 id="-see-assignment6-https-valdostaedu-my-sharepoint-com-personal-sdholcomb_valdosta_edu-_layouts-15-guestaccess-aspx-folderid-01d4eea883e9d43e69161d9d2c1cd3c7a-authkey-asu5alo_3eighg43f9z9jb8-expiration-2017-05-09t19-3a52-3a47-000z-"><a href="https://valdostaedu-my.sharepoint.com/personal/sdholcomb_valdosta_edu/_layouts/15/guestaccess.aspx?folderid=01d4eea883e9d43e69161d9d2c1cd3c7a&amp;authkey=ASU5aLO_3eiGHg43F9Z9jB8&amp;expiration=2017-05-09T19%3a52%3a47.000Z">See Assignment6 </a></h5>
+</li>
+</ul></body>
+</html>
