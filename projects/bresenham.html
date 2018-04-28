@@ -1,5 +1,7 @@
-
-<!-- saved from url=(0083)http://mypages.valdosta.edu/rpmihail/teaching/S18/CS4830/assignments/bresenham.html -->
+//==================================================
+//Sean Holcomb
+//Bresenham Line Drawing
+//==================================================
 <html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<style>
 		body{
@@ -99,7 +101,6 @@ function plotLine(x0,y0, x1,y1, isHighSlope){
     D = D + 2*dy;
 	}
 }
-
 //======================================
 //bresenham(): 	based on slope & direction, swaps arguments if needed
 //							and sets HTML to show octant
@@ -145,16 +146,6 @@ function display()
 	context.strokeStyle = "#ffffff";
 
 	bresenham(p0, p1);
-
-
-	// this is what the algorithm should output
-  /*
-	context.beginPath();
-	context.moveTo(p0.x, p0.y);
-	context.lineTo(p1.x, p1.y);
-	context.stroke();
-  */
-
 }
 </script>
 </body></html>
