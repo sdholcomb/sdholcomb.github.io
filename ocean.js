@@ -72,16 +72,19 @@ document.addEventListener('mousemove', (event) => {
 
 });
 
+var isPaused = false;
+
 var animate = function () {
-  requestAnimationFrame( animate );
+  if(!isPaused){
+    for(var i = 0; i < plane.geometry.vertices.length; i++){
+      var v = plane.geometry.vertices[i];
+      v.z = Math.sin((v.x + counter)/3) + Math.sin((v.y)/3);
+    }
+    plane.geometry.verticesNeedUpdate = true;
 
-  for(var i = 0; i < plane.geometry.vertices.length; i++){
-    var v = plane.geometry.vertices[i];
-    v.z = Math.sin((v.x + counter)/3) + Math.sin((v.y)/3);
+    counter += 0.05;
   }
-  plane.geometry.verticesNeedUpdate = true;
-
-  counter += 0.05;
+  requestAnimationFrame( animate );
   renderer.render(scene, camera);
 };
 
