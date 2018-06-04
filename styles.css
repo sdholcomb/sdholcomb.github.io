@@ -21,23 +21,3 @@
   margin: auto;
   margin-top: 2%;;
 }
-
-.circle-container {
-  display: grid;
-  margin: auto;
-  grid-template-columns: repeat(3, 40%);
-  grid-auto-rows: 200px;
-}
-
-.circlecard {
-  height: 100px;
-  width: 100px;
-  border-radius: 50px;
-  color: white;
-  text-align: center;
-}
-
-.circlecard > p {
-  padding-top: 30px;
-  font-size: 20px;
-}
