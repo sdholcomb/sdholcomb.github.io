@@ -72,6 +72,7 @@ document.addEventListener('mousemove', (event) => {
 
 });
 
+
 var isPaused = false;
 
 var animate = function () {
