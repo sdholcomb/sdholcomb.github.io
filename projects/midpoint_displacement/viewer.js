@@ -7,6 +7,10 @@
 var width = window.innerWidth;
 var height = window.innerHeight;
 
+var creationSize = 65;
+var creationHeight = 10;
+var creationRough = 6;
+
 //Camera rotation vectors
 var sensitivity = 0.5;
 var cameraLookAt = new THREE.Vector3(0,0,-1);
@@ -31,8 +35,10 @@ scene.add(camera);
 //grid needs to be 2^n + 1. Until I set up a good balance for
 //displacement to grid size, Changing this will drastically change roughness of terrain
 var gridSize = 65;
-var displacement = genDisplacement(gridSize);
-displacement = flattenArray(displacement);
+
+var tergen = new TerrainGen();
+var displacement = tergen.genMidpointDisplacement(gridSize,10,6,[1,1,1,1]);
+displacement = tergen.flattenArray(displacement);
 
 var geometry = new THREE.PlaneBufferGeometry(gridSize, gridSize, gridSize - 1, gridSize - 1);
 var positions = geometry.attributes.position.array;
@@ -48,8 +54,6 @@ var mesh = new THREE.Mesh(geometry, material);
 mesh.rotation.x = -90* Math.PI / 180.0;
 scene.add(mesh);
 
-//Adjustments
-//scene.fog = new THREE.Fog(0xffffff,5,50)
 camera.position.set(0,15,gridSize+5);
 
 //----- WASD controls event listener -----
@@ -71,6 +75,7 @@ document.addEventListener('keydown', (event) => {
   }
 }, false);
 
+createGUI();
 //----- Mouse controls event listener for pitch/yaw -----
 document.addEventListener('mousemove', (event) => {
   if(!camLocked){
@@ -86,6 +91,7 @@ document.addEventListener('mousemove', (event) => {
     //handling yaw
     cameraLookAt.applyAxisAngle((new THREE.Vector3(0,1,0)),xmovement * sensitivity);
     cameraLeft.applyAxisAngle((new THREE.Vector3(0,1,0)),xmovement * sensitivity);
+
 
     //handling pitch
     cameraLookAt.applyAxisAngle(cameraLeft,ymovement * sensitivity);
@@ -116,93 +122,80 @@ function lockChangeAlert() {
     camLocked = 1;
   }
 }
-//-----------------------------------------
-//flattenArray: flattens 2D array to 1D and returns new array
-//-----------------------------------------
-function flattenArray(array){
-  var flattened = array[0];
-  for(var i = 1; i < array.length; i++){
-    flattened = flattened.concat(array[i]);
+
+function recreateGeometry(grid, height, roughness, tl, tr, br, bl){
+  scene.remove(mesh);
+
+  var displacement = tergen.genMidpointDisplacement(grid, height, roughness,[tl,tr,br,bl]);
+  displacement = tergen.flattenArray(displacement);
+
+  var geometry = new THREE.PlaneBufferGeometry(grid, grid, grid - 1, grid - 1);
+  var positions = geometry.attributes.position.array;
+
+  var i1 = 0;
+  for(var i = 2; i < positions.length; i += 3) {
+    positions[i] += displacement[i1];
+    i1++;
   }
-  return flattened;
+
+  mesh = new THREE.Mesh(geometry, material);
+  mesh.rotation.x = -90* Math.PI / 180.0;
+  scene.add(mesh);
 }
-//-----------------------------------------
-//genDisplacement: generates displacement map
-//                 recommend 2^n + 1 sizes
-//-----------------------------------------
-function genDisplacement(size){
-  //create displacement map
-  var dpm = [];
-  for(var i = 0; i < size; i++){
-      dpm[i] = [];
-    for(var j = 0; j < size; j++){
-      dpm[i][j] = 0;
-    }
+
+function createGUI(){
+  //create HTML User Interface
+  var sizeP = document.createElement("p");
+  sizeP.innerHTML = "Size: ";
+
+  var sizeElement = document.createElement("INPUT");
+  sizeElement.setAttribute("type", "number");
+  sizeElement.setAttribute("min", "3");
+  sizeElement.setAttribute("max", "8");
+  sizeElement.setAttribute("value", "6");
+
+  var heightP = document.createElement("p");
+  heightP.innerHTML = "Height: ";
+
+  var heightElement = document.createElement("INPUT");
+  heightElement.setAttribute("type", "range");
+  heightElement.setAttribute("min", "1");
+  heightElement.setAttribute("max", "100");
+  heightElement.setAttribute("value", "10");
+
+  var roughP = document.createElement("p");
+  roughP.innerHTML = "Roughness: ";
+
+  var roughElement = document.createElement("INPUT");
+  roughElement.setAttribute("type", "range");
+  roughElement.setAttribute("min", "1");
+  roughElement.setAttribute("max", "20");
+  roughElement.setAttribute("value", "6");
+
+  var buttonElement = document.createElement("button");
+  buttonElement.innerHTML = "Generate";
+
+  var div = document.createElement("div");
+  div.setAttribute("class", "uibox");
+  document.body.appendChild(div);
+  div.appendChild(sizeP);
+  div.appendChild(sizeElement);
+  div.appendChild(heightP);
+  div.appendChild(heightElement);
+  div.appendChild(roughP);
+  div.appendChild(roughElement);
+  div.appendChild(buttonElement);
+
+  heightElement.oninput = function(){
+    creationHeight = parseFloat(this.value);
   }
-
-  //sets overall height
-  var wholeHeight = 1;
-
-  var tl, tr, bl, br;
-  tl = Math.random() * wholeHeight;
-  tr = Math.random() * wholeHeight;
-  br = Math.random() * wholeHeight;
-  bl = Math.random() * wholeHeight;
-
-  subDivide(dpm, 0, 0, tl, tr, br, bl, size, 1);
-
-  console.log(dpm);
-  return dpm;
-}
-//-----------------------------------------
-//subDivide: recursively called on smaller squares
-//          to do midpoint displacement
-//-----------------------------------------
-function subDivide(dpm, x, y, c1, c2, c3, c4, size, stage){
-  var e1, e2, e3, e4, mid;
-
-  var halfsize = Math.ceil(size/2);
-
-  if(size > 2){
-
-    e1 = (c1 + c2) / 2 + Math.random()/2; //topedge
-    e2 = (c2 + c3) / 2 + Math.random()/2; //right edge
-    e3 = (c3 + c4) / 2 + Math.random()/2; //bottom edge
-    e4 = (c4 + c1) / 2 + Math.random()/2; //left edge
-    mid = (c1 + c2 + c3 + c4) / 4 + noise(stage); //mid point
-
-    if(mid < 0)
-      mid = 0;
-
-    //============== Leaving this pain here for future reference ==========
-    //dpm[y][x + halfsize-1] = e1;
-    //dpm[y + halfsize-1][x + size-1] = e2;
-    //dpm[y + size-1][x + halfsize-1] = e3;
-    //dpm[y + halfsize-1][x] = e4;
-    //dpm[y + halfsize-1][x + halfsize-1] = mid;
-
-    //THIS WAS THE ISSUE. IF ASSIGN VALUES DURING THE RECURSION RATHER THAN
-    //AT THE END, you cause a mismatch in order where all topleft squares done,
-    //then all top right, etc. this is not good.
-
-    stage += 1.5;
-
-    subDivide(dpm, x, y, c1, e1, mid, e4, halfsize, stage); //top left square
-    subDivide(dpm, x + halfsize-1, y, e1, c2, e2, mid, halfsize, stage); //top right square
-    subDivide(dpm, x + halfsize - 1, y + halfsize - 1, mid, e2, c3, e3, halfsize, stage); //bottom right square
-    subDivide(dpm, x, y + halfsize - 1, e4, mid, e3, c4, halfsize, stage); //bottom left square
+  roughElement.oninput = function(){
+    creationRough = parseFloat(this.value);
   }
-  else{
-    var c = (c1 + c2 + c3 + c4) / 4;
-    dpm[y][x] = c;
+  buttonElement.onclick = function(){
+    creationSize = Math.pow(2,parseFloat(sizeElement.value)) + 1;
+    recreateGeometry(creationSize, creationHeight, creationRough,1,1,1,1);
   }
-}
-//----------------------------------
-//noise: Simple noise based on stage of the recursion.
-//        needs to be adjusted to account for size of grid
-//----------------------------------
-function noise(num){
-  return (Math.random() * 10/ (Math.random()^num));
 }
 
 function render() {
