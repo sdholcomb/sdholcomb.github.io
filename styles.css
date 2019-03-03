@@ -9,6 +9,7 @@
 
 .cardlink{
   text-decoration: none;
+  width: 90%;
 }
 
 .cardlink:hover{
