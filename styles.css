@@ -7,9 +7,16 @@
   margin-right: 32px;
 }
 
+.mainIcon{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .cardlink{
   text-decoration: none;
   width: 90%;
+  border-radius: 5%;
 }
 
 .cardlink:hover{
