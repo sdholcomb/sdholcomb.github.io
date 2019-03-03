@@ -16,7 +16,7 @@
 .cardlink{
   text-decoration: none;
   width: 90%;
-  border-radius: 5%;
+  border-radius: 25px;
 }
 
 .cardlink:hover{
