@@ -1,3 +1,7 @@
+body {
+  background-color: #dddddd;
+}
+
 .navdrawer .mdl-navigation__link:hover {
   background-color: #00BCD4 !important;
 }
