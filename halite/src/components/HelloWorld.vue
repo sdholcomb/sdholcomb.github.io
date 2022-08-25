@@ -24,20 +24,29 @@ function init () {
   const scene = new THREE.Scene();
   scene.background = new THREE.Color( 0x121212 );
 
-  //create a blue LineBasicMaterial
-  const material = new THREE.LineBasicMaterial( { color: 0x0000ff } );
+  var radius = 20;
+  var segments = 5;
+  var rings = 5;
 
-  const points = [];
-  points.push( new THREE.Vector3( - 10, 0, 0 ) );
-  points.push( new THREE.Vector3( 0, 10, 0 ) );
-  points.push( new THREE.Vector3( 10, 0, 0 ) );
+  var geometry = new THREE.SphereGeometry(radius, segments, rings);
+  var material = new THREE.MeshBasicMaterial({
+    color: 0x1b804f,
+    wireframe: true
+  });
 
-  const geometry = new THREE.BufferGeometry().setFromPoints( points );
+  var sphere = new THREE.Mesh(geometry, material);
+  scene.add(sphere)
 
-  const line = new THREE.Line( geometry, material );
+  var render = function() {
+    requestAnimationFrame(render);
 
-  scene.add( line );
-  renderer.render( scene, camera );
+    sphere.rotation.x += 0.008;
+    sphere.rotation.y += 0.008;
+
+    renderer.render(scene, camera);
+  }
+
+  render()
 }
 
 function animate () {
