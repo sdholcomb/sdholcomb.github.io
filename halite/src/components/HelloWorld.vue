@@ -1,43 +1,63 @@
-<script setup>
-defineProps({
-  msg: {
-    type: String,
-    required: true
-  }
-})
-</script>
-
 <template>
-  <div class="greetings">
-    <h1 class="green">{{ msg }}</h1>
-    <h3>
-      You’ve successfully created a project with
-      <a target="_blank" href="https://vitejs.dev/">Vite</a> +
-      <a target="_blank" href="https://vuejs.org/">Vue 3</a>.
-    </h3>
-  </div>
+  <div id="container"></div>
 </template>
 
-<style scoped>
-h1 {
-  font-weight: 500;
-  font-size: 2.6rem;
-  top: -10px;
+<script>
+import * as THREE from 'three';
+
+let mesh
+let renderer
+let scene
+let camera
+
+function init () {
+  let container = document.getElementById('container');
+
+  const renderer = new THREE.WebGLRenderer();
+  renderer.setSize( window.innerWidth, window.innerHeight );
+  container.appendChild( renderer.domElement );
+
+  const camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 500 );
+  camera.position.set( 0, 0, 100 );
+  camera.lookAt( 0, 0, 0 );
+
+  const scene = new THREE.Scene();
+  scene.background = new THREE.Color( 0x121212 );
+
+  //create a blue LineBasicMaterial
+  const material = new THREE.LineBasicMaterial( { color: 0x0000ff } );
+
+  const points = [];
+  points.push( new THREE.Vector3( - 10, 0, 0 ) );
+  points.push( new THREE.Vector3( 0, 10, 0 ) );
+  points.push( new THREE.Vector3( 10, 0, 0 ) );
+
+  const geometry = new THREE.BufferGeometry().setFromPoints( points );
+
+  const line = new THREE.Line( geometry, material );
+
+  scene.add( line );
+  renderer.render( scene, camera );
 }
 
-h3 {
-  font-size: 1.2rem;
+function animate () {
+  requestAnimationFrame(animate);
+  mesh.rotation.x += 0.01;
+  mesh.rotation.y += 0.02;
+  renderer.render(scene, camera);
 }
 
-.greetings h1,
-.greetings h3 {
-  text-align: center;
-}
-
-@media (min-width: 1024px) {
-  .greetings h1,
-  .greetings h3 {
-    text-align: left;
+export default {
+  name: 'HelloWorld',
+  data: () => ({
+  }),
+  methods: {
+    init: function() {
+      console.log('init')
+    }
+  },
+  mounted() {
+    init();
   }
 }
-</style>
+</script>
