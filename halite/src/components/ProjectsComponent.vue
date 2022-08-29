@@ -50,6 +50,8 @@
 </template>
 
 <script>
+import img1 from '@/assets/images/img1.png'
+import waveslabImg from '@/assets/images/waveslab.png'
 
 export default {
   name: 'ProjectsComponent',
@@ -58,49 +60,49 @@ export default {
       {
         title: 'Keycode',
         subtitle: 'Simple tool to acquire keycodes',
-        src: '../../static/images/img1.png',
+        src: img1,
         year: 2018,
         route: null,
       },
       {
         title: 'Snake',
         subtitle: 'A game of snake',
-        src: '../../static/images/img1.png',
+        src: img1,
         year: 2018,
         route: null,
       },
       {
         title: 'Bresenham',
         subtitle: 'Bresenham algorithm visualized',
-        src: '../../static/images/img1.png',
+        src: img1,
         year: 2018,
         route: null,
       },
       {
         title: 'Hoppy Hunting',
         subtitle: 'A 2.5D game made in canvas',
-        src: '../../static/images/img1.png',
+        src: img1,
         year: 2018,
         route: null,
       },
       {
         title: 'Matrix Flight',
         subtitle: 'Flight with matrix math',
-        src: '../../static/images/img1.png',
+        src: img1,
         year: 2018,
         route: null,
       },
       {
         title: 'Midpoint Displacement',
         subtitle: 'Midpoint displacement visualized',
-        src: '../../static/images/img1.png',
+        src: img1,
         year: 2018,
         route: null,
       },
       {
         title: 'Waveslab',
         subtitle: 'Audio visualization tool',
-        src: '../../static/images/waveslab.png',
+        src: waveslabImg,
         year: 2018,
         route: 'https://sdholcomb.github.io/WaveSlab/examples/example_override_style.html',
       },

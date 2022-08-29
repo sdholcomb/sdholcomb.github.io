@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import logo from './assets/icon.svg'
+import logo from '@/assets/icon.svg'
 
 export default {
   name: 'App',
