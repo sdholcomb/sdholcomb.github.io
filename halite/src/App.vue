@@ -14,9 +14,32 @@
       <v-divider></v-divider>
 
       <v-list density="compact" nav>
-        <v-list-item prepend-icon="mdi-flask-empty-outline" title="Projects" value="myfiles"></v-list-item>
-        <v-list-item prepend-icon="mdi-account-multiple" title="About me" value="shared"></v-list-item>
-        <v-list-item prepend-icon="mdi-book-open" title="Learn" value="starred"></v-list-item>
+        <v-list-item
+          prepend-icon="mdi-home"
+          title="Home"
+          value="home"
+          class="nav-drawer-item"
+          @click="routeHome"
+        />
+        <v-list-item
+          prepend-icon="mdi-flask-empty-outline"
+          title="Projects"
+          value="projects"
+          class="nav-drawer-item"
+          @click="routeProjects"
+        />
+        <v-list-item
+          prepend-icon="mdi-account-multiple"
+          title="About me"
+          value="aboutme"
+          class="nav-drawer-item"
+        />
+        <v-list-item
+          prepend-icon="mdi-book-open"
+          title="Learn"
+          value="learn"
+          class="nav-drawer-item"
+        />
       </v-list>
     </v-navigation-drawer>
 
@@ -31,9 +54,22 @@ import logo from './assets/icon.svg'
 
 export default {
   name: 'App',
-
   data: () => ({
     logo
   }),
+  methods: {
+    routeHome: function () {
+      this.$router.push('/')
+    },
+    routeProjects: function () {
+      this.$router.push('/projects')
+    }
+  }
 }
 </script>
+
+<style scoped>
+  .nav-drawer-item:hover {
+    color: #239c62;
+  }
+</style>
