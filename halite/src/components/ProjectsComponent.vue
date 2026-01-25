@@ -59,28 +59,28 @@ export default {
     cards: [
       {
         title: 'Keycode',
-        subtitle: 'Simple tool to acquire keycodes',
+        subtitle: 'Basic tool for checking keycodes',
         src: img1,
         year: 2018,
         route: null,
       },
       {
         title: 'Snake',
-        subtitle: 'A game of snake',
+        subtitle: 'Crudely made snake game',
         src: img1,
         year: 2018,
         route: null,
       },
       {
         title: 'Bresenham',
-        subtitle: 'Bresenham algorithm visualized',
+        subtitle: 'Visualization of bresenham line drawing algorithm',
         src: img1,
         year: 2018,
         route: null,
       },
       {
         title: 'Hoppy Hunting',
-        subtitle: 'A 2.5D game made in canvas',
+        subtitle: 'Creating a 2.5D game using just an HTML canvas',
         src: img1,
         year: 2018,
         route: null,
@@ -94,7 +94,7 @@ export default {
       },
       {
         title: 'Midpoint Displacement',
-        subtitle: 'Midpoint displacement visualized',
+        subtitle: 'Visualization of the midpoint displacement algorithm',
         src: img1,
         year: 2018,
         route: null,
