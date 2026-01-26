@@ -40,8 +40,8 @@ function init () {
   var render = function() {
     requestAnimationFrame(render);
 
-    sphere.rotation.x += 0.008;
-    sphere.rotation.y += 0.008;
+    sphere.rotation.x += 0.003;
+    sphere.rotation.y += 0.003;
 
     renderer.render(scene, camera);
   }

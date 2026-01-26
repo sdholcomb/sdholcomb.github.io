@@ -7,7 +7,7 @@
       <v-list>
         <v-list-item
           :prepend-avatar="logo"
-          title="Halite"
+          title="Sean Holcomb"
         ></v-list-item>
       </v-list>
 
@@ -33,12 +33,14 @@
           title="About me"
           value="aboutme"
           class="nav-drawer-item"
+          @click="routeAboutMe"
         />
         <v-list-item
           prepend-icon="mdi-book-open"
           title="Learn"
           value="learn"
           class="nav-drawer-item"
+          @click="routeLearn"
         />
       </v-list>
     </v-navigation-drawer>
@@ -50,7 +52,7 @@
 </template>
 
 <script>
-import logo from '@/assets/icon.svg'
+import logo from '@/assets/icon.png'
 
 export default {
   name: 'App',
@@ -63,6 +65,12 @@ export default {
     },
     routeProjects: function () {
       this.$router.push('/projects')
+    },
+    routeAboutMe: function () {
+      this.$router.push('/about')
+    },
+    routeLearn: function () {
+      this.$router.push('/learn')
     }
   }
 }
